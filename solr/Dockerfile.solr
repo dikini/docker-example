@@ -1,0 +1,21 @@
+FROM ubuntu:wily
+
+ENV LC_ALL C
+ENV SOLR_VERSION 5.4.1
+ENV SOLR solr-$SOLR_VERSION
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+&& apt-get update \
+&& apt-get -y install openjdk-8-jre-headless lsof curl procps wget unzip \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+&& mkdir -p /opt 
+RUN wget -nv --output-document=/opt/$SOLR.tgz http://www.mirrorservice.org/sites/ftp.apache.org/lucene/solr/$SOLR_VERSION/$SOLR.tgz
+RUN tar -C /opt -xzf /opt/$SOLR.tgz 
+RUN rm /opt/$SOLR.tgz \
+&& ln -s /opt/$SOLR /opt/solr \
+&& mkdir /opt/solr/server/solr/drupal
+
+COPY solr-conf/drupal /opt/solr/server/solr/
+
+CMD /opt/solr/bin/solr -f

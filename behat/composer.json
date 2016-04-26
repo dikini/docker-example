@@ -1,0 +1,16 @@
+{
+  "require": {
+    "behat/behat": "dev-master",
+    "drupal/drupal-extension": "~3.1",
+    "emuse/behat-html-formatter": "dev-master"
+  },
+  "require-dev": {
+    "bossa/phpspec2-expect": "~1.0",
+    "ocramius/proxy-manager": "~0.5",
+    "phpunit/phpunit": "4.1.6"
+  },
+  "config": {
+    "bin-dir": "bin/"	
+   }
+
+}
