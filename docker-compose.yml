@@ -27,8 +27,7 @@ selenium-ff:
   ports:
     - "4444:4444"
 behat:
-  build: behat
-  dockerfile: Dockerfile.behat
+  image:dikini/behat
   environment:
    - TEST=unused
    - TERM=xterm

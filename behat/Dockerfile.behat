@@ -1,4 +1,4 @@
-FROM localhost:5000/behat-base:latest
+FROM dikini/behat-base:latest
 MAINTAINER Vladimir Zlatanov
 
 COPY automated-tests /home/behat
