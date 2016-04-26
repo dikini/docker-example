@@ -22,9 +22,9 @@ COPY run.sh /root/run.sh
 RUN   apt-get -y update \
   &&  chmod -R u+w /root/run.sh \
   &&  apt-get install -y php5-cli apache2  libapache2-mod-php5 php5-gd php5-mysql php5-memcached php5-solr php5-intl composer  \
-          git vim-tiny curl wget pwgen \
+          git vim-tiny curl wget pwgen vim \
   &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  &&  curl -s http://files.drush.org/drush.phar > /usr/local/bin/drush \
+  &&  curl -s https://files.drush.org/drush.phar > /usr/local/bin/drush \
   &&  chmod a+x /usr/local/bin/drush 
 
 COPY run.sh /root/run.sh

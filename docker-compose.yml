@@ -9,31 +9,13 @@ webhead:
     - "memcached"
   ports:
     - "80:80"
-  environment:
-    - TERM=xterm 
-    - DRUPAL_DOCROOT=/var/www/html 
-    - DRUPAL_PROFILE=invotra_standard 
-    - DEBIAN_FRONTEND=noninteractive 
-    - ACCOUNT_NAME=admin 
-    - ACCOUNT_PASS=somepassword 
-    - SITE_NAME="glorious one" 
-    - MYSQL_ROOT_PASSWORD=invdb 
-    - DB=webdb 
-    - APACHE_LOCK_DIR=/var/lock/apache2 
-    - APACHE_PID_FILE=apache.pid 
-    - APACHE_RUN_USER=www-data 
-    - APACHE_RUN_GROUP=www-data 
-    - APACHE_LOG_DIR=/var/log/apache2 
-    - UPLOAD_LIMIT=20M
-    - MEMORY_LIMIT=512M
-    - MYSQL_ROOT_PASSWORD=invdb
   volumes:
     - invotra:/var/www/html
 db:
   image: mariadb
   container_name: invotra_db
   environment:
-    - MYSQL_ROOT_PASSWORD=invdb
+    - MYSQL_ROOT_PASSWORD=somepassword
 memcached:
   image: memcached:latest
 solr:
@@ -52,3 +34,5 @@ behat:
    - TERM=xterm
   links:
     - selenium-ff
+  volumes:
+    - "/home/dikini/Projects/docker-invotra/automated-tests:/home/behat/automated-tests"

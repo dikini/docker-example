@@ -1,0 +1,8 @@
+FROM localhost:5000/behat-base:latest
+MAINTAINER Vladimir Zlatanov
+
+COPY automated-tests /home/behat
+COPY behat.yml /home/behat/behat.yml
+
+# The behat runner
+CMD ["bash", "-c",  "behat --tags "@acceptance" --format "junit, progress" --out xml,"]

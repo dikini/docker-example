@@ -1,0 +1,20 @@
+FROM php:5.5-cli
+MAINTAINER Vladimir Zlatanov
+
+USER behat
+WORKDIR /home/behat
+ENV HOME /home/behat
+ENV PATH $PATH:/home/behat:/home/behat/composer/bin
+
+
+
+COPY automated-tests /home/behat/
+
+RUN chmod +x /home/behat/behat
+
+
+#copy the runner script into container
+COPY run.sh /home/behat/run.sh
+
+# The behat runner
+CMD ["bash", "-c",  "/home/behat/run.sh"]

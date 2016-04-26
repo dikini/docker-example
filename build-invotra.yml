@@ -1,0 +1,55 @@
+# This is a sample configuration to run an invotra instance with Docker-Compose.
+# For customization options see: https://docs.docker.com/compose/yml/
+
+webhead:
+  image: dikini/apache-d7:latest
+  links:
+    - "db:db"
+  #  - "solr"
+  #  - "memcached"
+  ports:
+    - "80:80"
+  environment:
+    - TERM=xterm 
+    - DRUPAL_DOCROOT=/var/www/html 
+    - DRUPAL_PROFILE=invotra_standard 
+    - DEBIAN_FRONTEND=noninteractive 
+    - ACCOUNT_NAME=admin 
+    - ACCOUNT_PASS=somepassword 
+    - SITE_NAME="glorious one" 
+    - MYSQL_ROOT_PASSWORD=somepassword 
+    - DB=webdb 
+    - APACHE_LOCK_DIR=/var/lock/apache2 
+    - APACHE_PID_FILE=apache.pid 
+    - APACHE_RUN_USER=www-data 
+    - APACHE_RUN_GROUP=www-data 
+    - APACHE_LOG_DIR=/var/log/apache2 
+    - UPLOAD_LIMIT=20M
+    - MEMORY_LIMIT=512M
+    - MYSQL_ROOT_PASSWORD=invdb
+db:
+  image: mariadb
+  container_name: invotra_db
+  environment:
+    - MYSQL_ROOT_PASSWORD=invdb
+memcache:
+  image: memcache:latest
+
+solr:
+  image: dikini/solr_d7:latest
+
+selenium-ff:
+  image: selenium/standalone-firefox
+  links:
+    - webhead
+  ports:
+    - "4444:4444"
+
+behat:
+  build: behat
+  dockerfile: Dockerfile.behat
+  environment:
+   - TEST=unused
+   - TERM=xterm
+  links:
+    - selenium-ff
