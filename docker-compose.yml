@@ -27,7 +27,7 @@ selenium-ff:
   ports:
     - "4444:4444"
 behat:
-  image:dikini/behat
+  image: dikini/behat
   environment:
    - TEST=unused
    - TERM=xterm
